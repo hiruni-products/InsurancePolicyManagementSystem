@@ -5,13 +5,9 @@
 // This avoids a name conflict between the Windows SDK IDataObject
 // type and System::Windows::Forms::IDataObject.
 
-// Helper header used only to convert GUI String^ values to standard C++ strings.
 #include <msclr/marshal_cppstd.h>
-
-// Core project logic written using normal C++ classes.
 #include "../Core/InsuranceSystem.h"
 
-// Windows Forms namespaces are used only after the native headers are loaded.
 using namespace System;
 using namespace System::Drawing;
 using namespace System::Windows::Forms;
@@ -25,10 +21,9 @@ namespace InsurancePolicyManagementSystemGUI
         // Native C++ object that contains all project data and OOP logic.
         InsuranceSystem* system;
 
-        // Main tab control used to separate the four required GUI features.
         TabControl^ tabs;
 
-        // ---------------- POLICY HOLDER CONTROLS ----------------
+        // ---------------- CUSTOMER REGISTRATION CONTROLS ----------------
         TextBox^ txtHolderID;
         TextBox^ txtName;
         TextBox^ txtNIC;
@@ -47,25 +42,26 @@ namespace InsurancePolicyManagementSystemGUI
         TextBox^ txtPremiumHolderID;
         Label^ lblPremiumResult;
 
-        // ---------------- CLAIM CONTROLS ----------------
+        // ---------------- CUSTOMER CLAIM CONTROLS ----------------
         TextBox^ txtClaimID;
         TextBox^ txtClaimHolderID;
         TextBox^ txtClaimAmount;
-        ComboBox^ cmbClaimStatus;
+        Label^ lblCustomerClaimStatus;
         Label^ lblClaimResult;
 
+        // ---------------- ADMIN CLAIM CONTROLS ----------------
+        TextBox^ txtAdminClaimID;
+        ComboBox^ cmbAdminClaimStatus;
+        Label^ lblAdminClaimDetails;
+        Label^ lblAdminClaimResult;
+
     public:
-        // Constructor runs when the form is created.
         MainForm()
         {
-            // Create the normal C++ InsuranceSystem object.
             system = new InsuranceSystem();
-
-            // Build all GUI controls.
             InitializeComponent();
         }
 
-        // Destructor releases the native C++ object when the form closes.
         ~MainForm()
         {
             if (system != nullptr)
@@ -76,19 +72,16 @@ namespace InsurancePolicyManagementSystemGUI
         }
 
     private:
-        // Convert a Windows Forms String^ into a standard C++ std::string.
         std::string toStdString(String^ text)
         {
             return msclr::interop::marshal_as<std::string>(text);
         }
 
-        // Convert a standard C++ std::string into a Windows Forms String^.
         String^ toManagedString(const std::string& text)
         {
             return gcnew String(text.c_str());
         }
 
-        // Small helper used to create a label with less repeated code.
         Label^ makeLabel(String^ text, int x, int y)
         {
             Label^ label = gcnew Label();
@@ -98,7 +91,6 @@ namespace InsurancePolicyManagementSystemGUI
             return label;
         }
 
-        // Small helper used to create a textbox with less repeated code.
         TextBox^ makeTextBox(int x, int y, int width)
         {
             TextBox^ box = gcnew TextBox();
@@ -107,7 +99,6 @@ namespace InsurancePolicyManagementSystemGUI
             return box;
         }
 
-        // Small helper used to create a button and attach one click event.
         Button^ makeButton(String^ text, int x, int y, int width, EventHandler^ clickHandler)
         {
             Button^ button = gcnew Button();
@@ -119,49 +110,48 @@ namespace InsurancePolicyManagementSystemGUI
             return button;
         }
 
-        // Create the complete window and the four functional tabs.
+        // Build the main window.
+        // Customer claim actions and admin claim actions are kept in separate tabs.
         void InitializeComponent()
         {
-            // Basic main-window settings.
             this->Text = "Insurance Policy Management System";
-            this->Size = Drawing::Size(760, 560);
+            this->Size = Drawing::Size(820, 580);
             this->StartPosition = FormStartPosition::CenterScreen;
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
 
-            // Main heading shown above the tabs.
             Label^ title = gcnew Label();
             title->Text = "INSURANCE POLICY MANAGEMENT SYSTEM";
             title->Font = gcnew Drawing::Font("Segoe UI", 18, FontStyle::Bold);
             title->AutoSize = true;
-            title->Location = Point(110, 20);
+            title->Location = Point(135, 20);
             this->Controls->Add(title);
 
-            // Create tab control.
             tabs = gcnew TabControl();
             tabs->Location = Point(20, 70);
-            tabs->Size = Drawing::Size(700, 430);
+            tabs->Size = Drawing::Size(760, 450);
             this->Controls->Add(tabs);
 
-            // Create one tab for each main assigned feature.
-            TabPage^ holderTab = gcnew TabPage("Policy Holder");
+            TabPage^ holderTab = gcnew TabPage("Customer Registration");
             TabPage^ planTab = gcnew TabPage("Policy Plan");
             TabPage^ premiumTab = gcnew TabPage("Premium");
-            TabPage^ claimTab = gcnew TabPage("Claim Status");
+            TabPage^ customerClaimTab = gcnew TabPage("Customer Claim");
+            TabPage^ adminClaimTab = gcnew TabPage("Admin Claim Review");
 
             tabs->TabPages->Add(holderTab);
             tabs->TabPages->Add(planTab);
             tabs->TabPages->Add(premiumTab);
-            tabs->TabPages->Add(claimTab);
+            tabs->TabPages->Add(customerClaimTab);
+            tabs->TabPages->Add(adminClaimTab);
 
-            // Build controls inside each tab.
             buildHolderTab(holderTab);
             buildPlanTab(planTab);
             buildPremiumTab(premiumTab);
-            buildClaimTab(claimTab);
+            buildCustomerClaimTab(customerClaimTab);
+            buildAdminClaimTab(adminClaimTab);
         }
 
-        // ---------------- POLICY HOLDER TAB ----------------
+        // ---------------- CUSTOMER REGISTRATION TAB ----------------
         void buildHolderTab(TabPage^ page)
         {
             page->Controls->Add(makeLabel("Holder ID", 30, 35));
@@ -188,7 +178,6 @@ namespace InsurancePolicyManagementSystemGUI
             txtAge = makeTextBox(180, 230, 250);
             page->Controls->Add(txtAge);
 
-            // Register button calls btnRegister_Click.
             page->Controls->Add(makeButton(
                 "Register",
                 180,
@@ -196,7 +185,6 @@ namespace InsurancePolicyManagementSystemGUI
                 120,
                 gcnew EventHandler(this, &MainForm::btnRegister_Click)));
 
-            // Search button calls btnSearchHolder_Click.
             page->Controls->Add(makeButton(
                 "Search",
                 310,
@@ -209,23 +197,19 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblHolderResult);
         }
 
-        // Register button event.
         void btnRegister_Click(Object^ sender, EventArgs^ e)
         {
-            // age receives the number typed in the Age textbox.
             int age = 0;
 
-            // Stop if age is not a valid integer.
             if (!Int32::TryParse(txtAge->Text, age))
             {
                 lblHolderResult->Text = "Age must be a number.";
+                lblHolderResult->ForeColor = Color::DarkRed;
                 return;
             }
 
-            // message receives the success/error text from the C++ core class.
             std::string message;
 
-            // Call the normal C++ function using textbox values.
             bool success = system->addPolicyHolder(
                 toStdString(txtHolderID->Text),
                 toStdString(txtName->Text),
@@ -235,21 +219,16 @@ namespace InsurancePolicyManagementSystemGUI
                 age,
                 message);
 
-            // Display the result returned by the core logic.
             lblHolderResult->Text = toManagedString(message);
             lblHolderResult->ForeColor = success ? Color::DarkGreen : Color::DarkRed;
         }
 
-        // Search button event.
         void btnSearchHolder_Click(Object^ sender, EventArgs^ e)
         {
-            // Create a temporary object to receive the searched holder record.
             PolicyHolder holder;
 
-            // Search using Holder ID typed in the first textbox.
             if (system->getPolicyHolder(toStdString(txtHolderID->Text), holder))
             {
-                // Fill the form using data returned by getter methods.
                 txtName->Text = toManagedString(holder.getName());
                 txtNIC->Text = toManagedString(holder.getNIC());
                 txtPhone->Text = toManagedString(holder.getPhone());
@@ -299,12 +278,10 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblPlanResult);
         }
 
-        // Select Plan button event.
         void btnSelectPlan_Click(Object^ sender, EventArgs^ e)
         {
             double coverageAmount = 0.0;
 
-            // Check that a plan has been selected in the combo box.
             if (cmbPlan->SelectedIndex == -1)
             {
                 lblPlanResult->Text = "Please select a policy plan.";
@@ -312,7 +289,6 @@ namespace InsurancePolicyManagementSystemGUI
                 return;
             }
 
-            // Convert coverage textbox into a number.
             if (!Double::TryParse(txtCoverage->Text, coverageAmount))
             {
                 lblPlanResult->Text = "Coverage amount must be a number.";
@@ -322,7 +298,6 @@ namespace InsurancePolicyManagementSystemGUI
 
             std::string message;
 
-            // Call the C++ core function.
             bool success = system->selectPolicyPlan(
                 toStdString(txtPlanHolderID->Text),
                 toStdString(cmbPlan->SelectedItem->ToString()),
@@ -352,13 +327,11 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblPremiumResult);
         }
 
-        // Calculate Premium button event.
         void btnCalculatePremium_Click(Object^ sender, EventArgs^ e)
         {
             double premium = 0.0;
             std::string message;
 
-            // Ask the C++ core class to calculate the premium.
             bool success = system->calculatePremium(
                 toStdString(txtPremiumHolderID->Text),
                 premium,
@@ -376,59 +349,56 @@ namespace InsurancePolicyManagementSystemGUI
             }
         }
 
-        // ---------------- CLAIM TAB ----------------
-        void buildClaimTab(TabPage^ page)
+        // ---------------- CUSTOMER CLAIM TAB ----------------
+        // Customer can submit a claim and view its status.
+        // Customer cannot change the claim status.
+        void buildCustomerClaimTab(TabPage^ page)
         {
-            page->Controls->Add(makeLabel("Claim ID", 30, 35));
-            txtClaimID = makeTextBox(190, 30, 250);
+            Label^ roleInfo = makeLabel(
+                "CUSTOMER: Submit a claim or search to view its current status.",
+                30,
+                20);
+            roleInfo->Font = gcnew Drawing::Font("Segoe UI", 10, FontStyle::Bold);
+            roleInfo->ForeColor = Color::DarkBlue;
+            page->Controls->Add(roleInfo);
+
+            page->Controls->Add(makeLabel("Claim ID", 30, 70));
+            txtClaimID = makeTextBox(190, 65, 250);
             page->Controls->Add(txtClaimID);
 
-            page->Controls->Add(makeLabel("Holder ID", 30, 80));
-            txtClaimHolderID = makeTextBox(190, 75, 250);
+            page->Controls->Add(makeLabel("Holder ID", 30, 115));
+            txtClaimHolderID = makeTextBox(190, 110, 250);
             page->Controls->Add(txtClaimHolderID);
 
-            page->Controls->Add(makeLabel("Claim Amount (Rs.)", 30, 125));
-            txtClaimAmount = makeTextBox(190, 120, 250);
+            page->Controls->Add(makeLabel("Claim Amount (Rs.)", 30, 160));
+            txtClaimAmount = makeTextBox(190, 155, 250);
             page->Controls->Add(txtClaimAmount);
-
-            page->Controls->Add(makeLabel("Status", 30, 170));
-            cmbClaimStatus = gcnew ComboBox();
-            cmbClaimStatus->Location = Point(190, 165);
-            cmbClaimStatus->Width = 250;
-            cmbClaimStatus->DropDownStyle = ComboBoxStyle::DropDownList;
-            cmbClaimStatus->Items->Add("Pending");
-            cmbClaimStatus->Items->Add("Under Review");
-            cmbClaimStatus->Items->Add("Approved");
-            cmbClaimStatus->Items->Add("Rejected");
-            page->Controls->Add(cmbClaimStatus);
 
             page->Controls->Add(makeButton(
                 "Submit Claim",
-                80,
-                230,
-                130,
+                190,
+                215,
+                125,
                 gcnew EventHandler(this, &MainForm::btnSubmitClaim_Click)));
 
             page->Controls->Add(makeButton(
                 "Search Claim",
-                225,
-                230,
-                130,
+                325,
+                215,
+                125,
                 gcnew EventHandler(this, &MainForm::btnSearchClaim_Click)));
 
-            page->Controls->Add(makeButton(
-                "Update Status",
-                370,
-                230,
-                130,
-                gcnew EventHandler(this, &MainForm::btnUpdateClaim_Click)));
+            page->Controls->Add(makeLabel("Current Status:", 30, 285));
+            lblCustomerClaimStatus = makeLabel("-", 190, 285);
+            lblCustomerClaimStatus->Font = gcnew Drawing::Font("Segoe UI", 11, FontStyle::Bold);
+            lblCustomerClaimStatus->ForeColor = Color::DarkBlue;
+            page->Controls->Add(lblCustomerClaimStatus);
 
-            lblClaimResult = makeLabel("", 30, 300);
+            lblClaimResult = makeLabel("", 30, 335);
             lblClaimResult->ForeColor = Color::DarkBlue;
             page->Controls->Add(lblClaimResult);
         }
 
-        // Submit Claim button event.
         void btnSubmitClaim_Click(Object^ sender, EventArgs^ e)
         {
             double claimAmount = 0.0;
@@ -450,9 +420,13 @@ namespace InsurancePolicyManagementSystemGUI
 
             lblClaimResult->Text = toManagedString(message);
             lblClaimResult->ForeColor = success ? Color::DarkGreen : Color::DarkRed;
+
+            if (success)
+            {
+                lblCustomerClaimStatus->Text = "Pending";
+            }
         }
 
-        // Search Claim button event.
         void btnSearchClaim_Click(Object^ sender, EventArgs^ e)
         {
             Claim claim;
@@ -461,37 +435,126 @@ namespace InsurancePolicyManagementSystemGUI
             {
                 txtClaimHolderID->Text = toManagedString(claim.getHolderID());
                 txtClaimAmount->Text = String::Format("{0:F2}", claim.getClaimAmount());
-                cmbClaimStatus->SelectedItem = toManagedString(claim.getStatus());
+                lblCustomerClaimStatus->Text = toManagedString(claim.getStatus());
 
                 lblClaimResult->Text = "Claim found.";
                 lblClaimResult->ForeColor = Color::DarkGreen;
             }
             else
             {
+                lblCustomerClaimStatus->Text = "-";
                 lblClaimResult->Text = "Claim not found.";
                 lblClaimResult->ForeColor = Color::DarkRed;
             }
         }
 
-        // Update Claim Status button event.
+        // ---------------- ADMIN CLAIM REVIEW TAB ----------------
+        // Only this admin section can change a claim status.
+        void buildAdminClaimTab(TabPage^ page)
+        {
+            Label^ roleInfo = makeLabel(
+                "ADMIN / STAFF: Search a claim, review it, then update its status.",
+                30,
+                20);
+            roleInfo->Font = gcnew Drawing::Font("Segoe UI", 10, FontStyle::Bold);
+            roleInfo->ForeColor = Color::DarkRed;
+            page->Controls->Add(roleInfo);
+
+            page->Controls->Add(makeLabel("Claim ID", 30, 75));
+            txtAdminClaimID = makeTextBox(190, 70, 250);
+            page->Controls->Add(txtAdminClaimID);
+
+            page->Controls->Add(makeButton(
+                "Search Claim",
+                460,
+                68,
+                130,
+                gcnew EventHandler(this, &MainForm::btnSearchAdminClaim_Click)));
+
+            lblAdminClaimDetails = makeLabel(
+                "Holder ID: -\r\nClaim Amount: -\r\nCurrent Status: -",
+                30,
+                135);
+            lblAdminClaimDetails->Font = gcnew Drawing::Font("Segoe UI", 10);
+            page->Controls->Add(lblAdminClaimDetails);
+
+            page->Controls->Add(makeLabel("New Status", 30, 235));
+            cmbAdminClaimStatus = gcnew ComboBox();
+            cmbAdminClaimStatus->Location = Point(190, 230);
+            cmbAdminClaimStatus->Width = 250;
+            cmbAdminClaimStatus->DropDownStyle = ComboBoxStyle::DropDownList;
+            cmbAdminClaimStatus->Items->Add("Pending");
+            cmbAdminClaimStatus->Items->Add("Under Review");
+            cmbAdminClaimStatus->Items->Add("Approved");
+            cmbAdminClaimStatus->Items->Add("Rejected");
+            page->Controls->Add(cmbAdminClaimStatus);
+
+            page->Controls->Add(makeButton(
+                "Update Status",
+                190,
+                290,
+                140,
+                gcnew EventHandler(this, &MainForm::btnUpdateClaim_Click)));
+
+            lblAdminClaimResult = makeLabel("", 30, 350);
+            lblAdminClaimResult->ForeColor = Color::DarkBlue;
+            page->Controls->Add(lblAdminClaimResult);
+        }
+
+        void btnSearchAdminClaim_Click(Object^ sender, EventArgs^ e)
+        {
+            Claim claim;
+
+            if (system->getClaim(toStdString(txtAdminClaimID->Text), claim))
+            {
+                lblAdminClaimDetails->Text =
+                    "Holder ID: " + toManagedString(claim.getHolderID()) +
+                    "\r\nClaim Amount: Rs. " + String::Format("{0:F2}", claim.getClaimAmount()) +
+                    "\r\nCurrent Status: " + toManagedString(claim.getStatus());
+
+                cmbAdminClaimStatus->SelectedItem = toManagedString(claim.getStatus());
+                lblAdminClaimResult->Text = "Claim found. Select a new status if required.";
+                lblAdminClaimResult->ForeColor = Color::DarkGreen;
+            }
+            else
+            {
+                lblAdminClaimDetails->Text = "Holder ID: -\r\nClaim Amount: -\r\nCurrent Status: -";
+                cmbAdminClaimStatus->SelectedIndex = -1;
+                lblAdminClaimResult->Text = "Claim not found.";
+                lblAdminClaimResult->ForeColor = Color::DarkRed;
+            }
+        }
+
         void btnUpdateClaim_Click(Object^ sender, EventArgs^ e)
         {
-            if (cmbClaimStatus->SelectedIndex == -1)
+            if (cmbAdminClaimStatus->SelectedIndex == -1)
             {
-                lblClaimResult->Text = "Please select a claim status.";
-                lblClaimResult->ForeColor = Color::DarkRed;
+                lblAdminClaimResult->Text = "Please select a claim status.";
+                lblAdminClaimResult->ForeColor = Color::DarkRed;
                 return;
             }
 
             std::string message;
 
             bool success = system->updateClaimStatus(
-                toStdString(txtClaimID->Text),
-                toStdString(cmbClaimStatus->SelectedItem->ToString()),
+                toStdString(txtAdminClaimID->Text),
+                toStdString(cmbAdminClaimStatus->SelectedItem->ToString()),
                 message);
 
-            lblClaimResult->Text = toManagedString(message);
-            lblClaimResult->ForeColor = success ? Color::DarkGreen : Color::DarkRed;
+            lblAdminClaimResult->Text = toManagedString(message);
+            lblAdminClaimResult->ForeColor = success ? Color::DarkGreen : Color::DarkRed;
+
+            if (success)
+            {
+                Claim claim;
+                if (system->getClaim(toStdString(txtAdminClaimID->Text), claim))
+                {
+                    lblAdminClaimDetails->Text =
+                        "Holder ID: " + toManagedString(claim.getHolderID()) +
+                        "\r\nClaim Amount: Rs. " + String::Format("{0:F2}", claim.getClaimAmount()) +
+                        "\r\nCurrent Status: " + toManagedString(claim.getStatus());
+                }
+            }
         }
     };
 }
