@@ -126,7 +126,7 @@ namespace InsurancePolicyManagementSystemGUI
             this->Text = "Insurance Policy Management System";
             this->Size = Drawing::Size(760, 560);
             this->StartPosition = FormStartPosition::CenterScreen;
-            this->FormBorderStyle = FormBorderStyle::FixedSingle;
+            this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
 
             // Main heading shown above the tabs.
