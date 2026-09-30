@@ -1,3 +1,6 @@
+// Windows types needed by the WinMain entry point.
+#include <Windows.h>
+
 // MainForm contains the Windows Forms GUI.
 #include "MainForm.h"
 
@@ -6,9 +9,10 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace InsurancePolicyManagementSystemGUI;
 
+// Windows GUI applications use WinMain as the starting function.
 // STAThreadAttribute is required by Windows Forms.
 [STAThreadAttribute]
-int main(array<String^>^ args)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     // Turn on standard Windows visual styles.
     Application::EnableVisualStyles();
