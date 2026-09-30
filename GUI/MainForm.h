@@ -1,15 +1,20 @@
 #pragma once
 
-// Windows Forms types such as Form, Button, TextBox and TabControl.
-using namespace System;
-using namespace System::Drawing;
-using namespace System::Windows::Forms;
+// IMPORTANT:
+// Native C++ headers are included BEFORE Windows Forms namespaces.
+// This avoids a name conflict between the Windows SDK IDataObject
+// type and System::Windows::Forms::IDataObject.
 
 // Helper header used only to convert GUI String^ values to standard C++ strings.
 #include <msclr/marshal_cppstd.h>
 
 // Core project logic written using normal C++ classes.
 #include "../Core/InsuranceSystem.h"
+
+// Windows Forms namespaces are used only after the native headers are loaded.
+using namespace System;
+using namespace System::Drawing;
+using namespace System::Windows::Forms;
 
 namespace InsurancePolicyManagementSystemGUI
 {
