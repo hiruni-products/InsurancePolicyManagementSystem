@@ -8,6 +8,8 @@
 #include <msclr/marshal_cppstd.h>
 #include "../Core/InsuranceSystem.h"
 
+using std::string;
+
 using namespace System;
 using namespace System::Drawing;
 using namespace System::Windows::Forms;
@@ -72,12 +74,12 @@ namespace InsurancePolicyManagementSystemGUI
         }
 
     private:
-        std::string toStdString(String^ text)
+        string toStdString(String^ text)
         {
-            return msclr::interop::marshal_as<std::string>(text);
+            return msclr::interop::marshal_as<string>(text);
         }
 
-        String^ toManagedString(const std::string& text)
+        String^ toManagedString(const string& text)
         {
             return gcnew String(text.c_str());
         }
@@ -208,7 +210,7 @@ namespace InsurancePolicyManagementSystemGUI
                 return;
             }
 
-            std::string message;
+            string message;
 
             bool success = system->addPolicyHolder(
                 toStdString(txtHolderID->Text),
@@ -296,7 +298,7 @@ namespace InsurancePolicyManagementSystemGUI
                 return;
             }
 
-            std::string message;
+            string message;
 
             bool success = system->selectPolicyPlan(
                 toStdString(txtPlanHolderID->Text),
@@ -330,7 +332,7 @@ namespace InsurancePolicyManagementSystemGUI
         void btnCalculatePremium_Click(Object^ sender, EventArgs^ e)
         {
             double premium = 0.0;
-            std::string message;
+            string message;
 
             bool success = system->calculatePremium(
                 toStdString(txtPremiumHolderID->Text),
@@ -410,7 +412,7 @@ namespace InsurancePolicyManagementSystemGUI
                 return;
             }
 
-            std::string message;
+            string message;
 
             bool success = system->createClaim(
                 toStdString(txtClaimID->Text),
@@ -534,7 +536,7 @@ namespace InsurancePolicyManagementSystemGUI
                 return;
             }
 
-            std::string message;
+            string message;
 
             bool success = system->updateClaimStatus(
                 toStdString(txtAdminClaimID->Text),
