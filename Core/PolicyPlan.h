@@ -4,6 +4,8 @@
 
 using std::string;
 
+// TG/2024/2194 - OOP DESIGN: PolicyPlan inheritance structure.
+// TG/2024/2283 - PROGRAMMER 2: plan values are used in premium calculation.
 // PolicyPlan is a BASE CLASS for different insurance plans.
 class PolicyPlan
 {
