@@ -36,10 +36,17 @@ Advanced features such as databases, networking, templates, smart pointers and S
 InsurancePolicyManagementSystem/
 |
 |-- Core/
-|   |-- Person.h
-|   |-- PolicyHolder.h
-|   |-- PolicyPlan.h
-|   |-- Claim.h
+|   |-- OOPDesign/
+|   |   |-- Person.h
+|   |   |-- PolicyHolder.h
+|   |   |-- PolicyPlan.h
+|   |   `-- Claim.h
+|   |-- PolicyHolderModule/
+|   |   `-- PolicyHolderManager.h
+|   |-- PremiumClaimModule/
+|   |   `-- PremiumClaimManager.h
+|   |-- Validation/
+|   |   `-- Validation.h
 |   `-- InsuranceSystem.h
 |
 |-- GUI/
@@ -121,4 +128,4 @@ Submit / Search / Update Claim
 
 ## Viva note
 
-Primary work is divided by TG number in `TEAM_ROLES.md`, but every group member should understand the complete system workflow and the main OOP concepts.
+The source code is separated into clear responsibility modules. `InsuranceSystem.h` is only the shared coordinator that connects the modules to the GUI. Primary responsibilities are listed in `TEAM_ROLES.md`, but every group member should understand the complete workflow and the main OOP concepts.
