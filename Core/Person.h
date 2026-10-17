@@ -3,15 +3,17 @@
 // Standard C++ string type.
 #include <string>
 
+using std::string;
+
 // Person is the BASE CLASS.
 // It keeps personal details that are common to every policy holder.
 class Person
 {
 protected:
     // protected means a derived class can use these variables directly.
-    std::string name;
-    std::string nic;
-    std::string phone;
+    string name;
+    string nic;
+    string phone;
 
 public:
     // Default constructor.
@@ -25,7 +27,7 @@ public:
 
     // Parameterized constructor.
     // It starts a Person object with values given by the user/program.
-    Person(std::string newName, std::string newNIC, std::string newPhone)
+    Person(string newName, string newNIC, string newPhone)
     {
         name = newName;
         nic = newNIC;
@@ -33,7 +35,7 @@ public:
     }
 
     // This public method changes all common personal details.
-    void setPersonalDetails(std::string newName, std::string newNIC, std::string newPhone)
+    void setPersonalDetails(string newName, string newNIC, string newPhone)
     {
         name = newName;
         nic = newNIC;
@@ -41,19 +43,19 @@ public:
     }
 
     // Getter method for name.
-    std::string getName() const
+    string getName() const
     {
         return name;
     }
 
     // Getter method for NIC.
-    std::string getNIC() const
+    string getNIC() const
     {
         return nic;
     }
 
     // Getter method for phone number.
-    std::string getPhone() const
+    string getPhone() const
     {
         return phone;
     }
