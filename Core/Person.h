@@ -5,7 +5,6 @@
 
 using std::string;
 
-// TG/2024/2194 - OOP DESIGN: Person base class, constructors, access specifiers and getters.
 // Person is the BASE CLASS.
 // It keeps personal details that are common to every policy holder.
 class Person
