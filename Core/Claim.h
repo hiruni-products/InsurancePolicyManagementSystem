@@ -4,6 +4,8 @@
 
 using std::string;
 
+// TG/2024/2283 - PROGRAMMER 2: claim creation and claim-status functions.
+// TG/2024/2194 - OOP DESIGN: Claim class encapsulates claim data.
 // Claim stores one insurance claim record.
 class Claim
 {
