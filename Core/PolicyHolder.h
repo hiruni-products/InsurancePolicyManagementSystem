@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+using std::string;
 #include "Person.h"
 
 // PolicyHolder is a DERIVED CLASS.
@@ -9,10 +11,10 @@ class PolicyHolder : public Person
 {
 private:
     // These data members are private to demonstrate encapsulation.
-    std::string holderID;
-    std::string address;
+    string holderID;
+    string address;
     int age;
-    std::string selectedPlan;
+    string selectedPlan;
     double coverageAmount;
     bool planSelected;
 
@@ -30,11 +32,11 @@ public:
 
     // Public method used when registering a policy holder.
     void setHolderDetails(
-        std::string newHolderID,
-        std::string newName,
-        std::string newNIC,
-        std::string newPhone,
-        std::string newAddress,
+        string newHolderID,
+        string newName,
+        string newNIC,
+        string newPhone,
+        string newAddress,
         int newAge)
     {
         // Store the unique holder ID.
@@ -49,7 +51,7 @@ public:
     }
 
     // Public method used to connect a plan to this holder.
-    void assignPlan(std::string newPlan, double newCoverageAmount)
+    void assignPlan(string newPlan, double newCoverageAmount)
     {
         selectedPlan = newPlan;
         coverageAmount = newCoverageAmount;
@@ -57,13 +59,13 @@ public:
     }
 
     // Getter for holder ID.
-    std::string getHolderID() const
+    string getHolderID() const
     {
         return holderID;
     }
 
     // Getter for address.
-    std::string getAddress() const
+    string getAddress() const
     {
         return address;
     }
@@ -75,7 +77,7 @@ public:
     }
 
     // Getter for selected plan.
-    std::string getSelectedPlan() const
+    string getSelectedPlan() const
     {
         return selectedPlan;
     }
