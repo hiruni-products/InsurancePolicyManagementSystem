@@ -74,11 +74,14 @@
 
   <ItemGroup>
     <ClInclude Include="GUI\MainForm.h" />
-    <ClInclude Include="Core\Person.h" />
-    <ClInclude Include="Core\PolicyHolder.h" />
-    <ClInclude Include="Core\PolicyPlan.h" />
-    <ClInclude Include="Core\Claim.h" />
     <ClInclude Include="Core\InsuranceSystem.h" />
+    <ClInclude Include="Core\OOPDesign\Person.h" />
+    <ClInclude Include="Core\OOPDesign\PolicyHolder.h" />
+    <ClInclude Include="Core\OOPDesign\PolicyPlan.h" />
+    <ClInclude Include="Core\OOPDesign\Claim.h" />
+    <ClInclude Include="Core\PolicyHolderModule\PolicyHolderManager.h" />
+    <ClInclude Include="Core\PremiumClaimModule\PremiumClaimManager.h" />
+    <ClInclude Include="Core\Validation\Validation.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
