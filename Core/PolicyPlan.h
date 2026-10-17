@@ -2,12 +2,14 @@
 
 #include <string>
 
+using std::string;
+
 // PolicyPlan is a BASE CLASS for different insurance plans.
 class PolicyPlan
 {
 protected:
     // protected allows derived plan classes to set these values.
-    std::string planName;
+    string planName;
     double basePremium;
     double coverageRate;
 
@@ -21,7 +23,7 @@ public:
     }
 
     // Getter for plan name.
-    std::string getPlanName() const
+    string getPlanName() const
     {
         return planName;
     }
