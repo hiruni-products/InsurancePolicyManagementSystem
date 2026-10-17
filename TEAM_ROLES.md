@@ -22,3 +22,17 @@ Code comments identify the purpose of each class and function. During the viva, 
 - What object/data it changes
 - What value/message it returns
 - Which OOP concept is demonstrated
+
+
+## Separate viva study files
+
+Each member has a separate study file inside the `VIVA_PARTS` folder:
+
+- TG/2024/2167 -> `VIVA_PARTS/TG2024_2167_GUI.md`
+- TG/2024/2175 -> `VIVA_PARTS/TG2024_2175_POLICY_HOLDER.md`
+- TG/2024/2194 -> `VIVA_PARTS/TG2024_2194_OOP_DESIGN.md`
+- TG/2024/2283 -> `VIVA_PARTS/TG2024_2283_PREMIUM_CLAIMS.md`
+- TG/2024/2293 -> `VIVA_PARTS/TG2024_2293_TESTING_VALIDATION.md`
+- TG/2024/2322 -> `VIVA_PARTS/TG2024_2322_DOCUMENTATION.md`
+
+These are study/reference files only. The working project code remains in `Core` and `GUI`.
