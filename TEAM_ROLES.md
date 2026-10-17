@@ -1,32 +1,29 @@
 # Group H - Code Responsibility Map
 
-These are primary responsibilities for development and presentation. Every member should understand the overall system for the viva.
+These are the primary responsibilities based on the approved project proposal. Every member should also understand the overall system for the viva.
 
-| Student Number | Primary Part | Main Files / Functions |
+| Student Number | Primary Part | Main Source Folder / Files |
 |---|---|---|
-| TG/2024/2167 | GUI Design & Navigation | `GUI/MainForm.h` - layout, tabs, buttons, textboxes, navigation |
-| TG/2024/2175 | Policy Holder + Plan Selection | `PolicyHolder.h`, `addPolicyHolder()`, `getPolicyHolder()`, `selectPolicyPlan()` |
-| TG/2024/2194 | OOP Design | `Person.h`, `PolicyPlan.h`, inheritance, constructors, access specifiers |
-| TG/2024/2283 | Premium + Claims | `calculatePremium()`, `Claim.h`, `createClaim()`, `updateClaimStatus()` |
-| TG/2024/2293 | Testing & Validation | validation blocks inside `InsuranceSystem.h`, test cases, invalid inputs |
-| TG/2024/2322 | Documentation & System Summary | `README.md`, `VIVA_GUIDE.md`, project workflow, final demo summary |
+| TG/2024/2167 | GUI Design & Navigation | `GUI/` - `MainForm.h`, `Program.cpp` |
+| TG/2024/2175 | Policy Holder Registration, Search & Plan Selection | `Core/PolicyHolderModule/PolicyHolderManager.h` |
+| TG/2024/2194 | OOP Design | `Core/OOPDesign/` - `Person.h`, `PolicyHolder.h`, `PolicyPlan.h`, `Claim.h` |
+| TG/2024/2283 | Premium Calculation & Claim Functions | `Core/PremiumClaimModule/PremiumClaimManager.h` |
+| TG/2024/2293 | Testing & Validation | `Core/Validation/Validation.h`, `TEST_CASES.md` |
+| TG/2024/2322 | Documentation | `README.md`, `VIVA_GUIDE.md`, report documentation |
+
+## Shared connector
+
+`Core/InsuranceSystem.h` is a small shared coordinator. It does not contain the full logic of several members. It only connects the separate modules so the GUI can call them through one system object.
 
 ## Important
 
-Presentation is a group activity. It is not assigned to only one student.
+The folders make the primary responsibilities clear, but the final presentation and viva are group activities. Every member should understand the basic project flow:
 
-Code comments identify the purpose of each class and function. During the viva, a member should be able to explain:
-
-- What inputs the function receives
-- What validation it performs
-- What object/data it changes
-- What value/message it returns
-- Which OOP concept is demonstrated
-
+Register Holder -> Search Holder -> Select Plan -> Calculate Premium -> Submit Claim -> Admin Review -> Update Status -> Customer Views Status
 
 ## Separate viva study files
 
-Each member has a separate study file inside the `VIVA_PARTS` folder:
+Each member also has a separate study file inside `VIVA_PARTS`:
 
 - TG/2024/2167 -> `VIVA_PARTS/TG2024_2167_GUI.md`
 - TG/2024/2175 -> `VIVA_PARTS/TG2024_2175_POLICY_HOLDER.md`
@@ -34,5 +31,3 @@ Each member has a separate study file inside the `VIVA_PARTS` folder:
 - TG/2024/2283 -> `VIVA_PARTS/TG2024_2283_PREMIUM_CLAIMS.md`
 - TG/2024/2293 -> `VIVA_PARTS/TG2024_2293_TESTING_VALIDATION.md`
 - TG/2024/2322 -> `VIVA_PARTS/TG2024_2322_DOCUMENTATION.md`
-
-These are study/reference files only. The working project code remains in `Core` and `GUI`.
