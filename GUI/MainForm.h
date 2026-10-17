@@ -16,8 +16,6 @@ using namespace System::Windows::Forms;
 
 namespace InsurancePolicyManagementSystemGUI
 {
-    // TG/2024/2167 - GUI DESIGN & NAVIGATION
-    // MainForm contains the tabs, labels, textboxes, buttons and GUI event handling.
     // MainForm is the graphical window shown to the user.
     public ref class MainForm : public Form
     {
