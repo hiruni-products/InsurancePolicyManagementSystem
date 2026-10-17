@@ -46,8 +46,6 @@ InsurancePolicyManagementSystem/
 |   |-- MainForm.h
 |   `-- Program.cpp
 |
-|-- ConsoleDemo/
-|   `-- main.cpp
 |
 |-- InsurancePolicyManagementSystemGUI.vcxproj
 |-- TEAM_ROLES.md
@@ -94,17 +92,6 @@ Age factor:
 - 30 to 49 = 1.10
 - 50 or above = 1.25
 
-## Running the console demo
-
-```bash
-g++ -std=c++17 ConsoleDemo/main.cpp -o InsuranceDemo.exe
-```
-
-Then run:
-
-```powershell
-.\InsuranceDemo.exe
-```
 
 ## Opening the GUI
 
