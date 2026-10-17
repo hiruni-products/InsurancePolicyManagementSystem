@@ -5,8 +5,6 @@
 using std::string;
 #include "Person.h"
 
-// TG/2024/2194 - OOP DESIGN: inheritance and encapsulation in PolicyHolder.
-// TG/2024/2175 - PROGRAMMER 1: holder details and policy-plan assignment use this class.
 // PolicyHolder is a DERIVED CLASS.
 // ': public Person' shows public inheritance.
 class PolicyHolder : public Person
@@ -32,7 +30,6 @@ public:
         planSelected = false;
     }
 
-    // TG/2024/2175 - POLICY HOLDER REGISTRATION
     // Public method used when registering a policy holder.
     void setHolderDetails(
         string newHolderID,
@@ -53,7 +50,6 @@ public:
         age = newAge;
     }
 
-    // TG/2024/2175 - POLICY PLAN SELECTION
     // Public method used to connect a plan to this holder.
     void assignPlan(string newPlan, double newCoverageAmount)
     {
