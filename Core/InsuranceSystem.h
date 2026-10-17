@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+using std::string;
 #include "PolicyHolder.h"
 #include "PolicyPlan.h"
 #include "Claim.h"
@@ -36,7 +38,7 @@ public:
 
     // Search for a policy holder by holder ID.
     // Returns array index if found, otherwise returns -1.
-    int findHolderIndex(std::string holderID) const
+    int findHolderIndex(string holderID) const
     {
         for (int i = 0; i < holderCount; i++)
         {
@@ -51,7 +53,7 @@ public:
 
     // Search for a claim by claim ID.
     // Returns array index if found, otherwise returns -1.
-    int findClaimIndex(std::string claimID) const
+    int findClaimIndex(string claimID) const
     {
         for (int i = 0; i < claimCount; i++)
         {
@@ -66,13 +68,13 @@ public:
 
     // Add a new policy holder.
     bool addPolicyHolder(
-        std::string holderID,
-        std::string name,
-        std::string nic,
-        std::string phone,
-        std::string address,
+        string holderID,
+        string name,
+        string nic,
+        string phone,
+        string address,
         int age,
-        std::string& message)
+        string& message)
     {
         // Basic validation: mandatory text fields cannot be empty.
         if (holderID == "" || name == "" || nic == "" || phone == "" || address == "")
@@ -120,7 +122,7 @@ public:
     }
 
     // Copy one holder record out of the system for display.
-    bool getPolicyHolder(std::string holderID, PolicyHolder& result) const
+    bool getPolicyHolder(string holderID, PolicyHolder& result) const
     {
         int index = findHolderIndex(holderID);
 
@@ -135,10 +137,10 @@ public:
 
     // Assign one of the three available plan names to a registered holder.
     bool selectPolicyPlan(
-        std::string holderID,
-        std::string planName,
+        string holderID,
+        string planName,
         double coverageAmount,
-        std::string& message)
+        string& message)
     {
         // Find the policy holder first.
         int index = findHolderIndex(holderID);
@@ -174,9 +176,9 @@ public:
 
     // Calculate an academic demonstration premium.
     bool calculatePremium(
-        std::string holderID,
+        string holderID,
         double& premium,
-        std::string& message) const
+        string& message) const
     {
         // Locate the holder.
         int index = findHolderIndex(holderID);
@@ -199,7 +201,7 @@ public:
         double coverageRate = 0.0;
 
         // Read the plan stored inside the policy holder.
-        std::string planName = holders[index].getSelectedPlan();
+        string planName = holders[index].getSelectedPlan();
 
         // Create a derived plan object according to the selected plan.
         if (planName == "Life Insurance")
@@ -243,10 +245,10 @@ public:
 
     // Create a new claim for an existing policy holder.
     bool createClaim(
-        std::string claimID,
-        std::string holderID,
+        string claimID,
+        string holderID,
         double claimAmount,
-        std::string& message)
+        string& message)
     {
         // Mandatory IDs cannot be empty.
         if (claimID == "" || holderID == "")
@@ -294,7 +296,7 @@ public:
     }
 
     // Copy a claim out for display.
-    bool getClaim(std::string claimID, Claim& result) const
+    bool getClaim(string claimID, Claim& result) const
     {
         int index = findClaimIndex(claimID);
 
@@ -309,9 +311,9 @@ public:
 
     // Change an existing claim status.
     bool updateClaimStatus(
-        std::string claimID,
-        std::string newStatus,
-        std::string& message)
+        string claimID,
+        string newStatus,
+        string& message)
     {
         // Locate the claim first.
         int index = findClaimIndex(claimID);
