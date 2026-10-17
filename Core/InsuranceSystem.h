@@ -36,6 +36,9 @@ public:
         claimCount = 0;
     }
 
+    // ================= TG/2024/2175 - PROGRAMMER 1 =================
+    // Policy holder registration, search and policy-plan selection.
+
     // Search for a policy holder by holder ID.
     // Returns array index if found, otherwise returns -1.
     int findHolderIndex(string holderID) const
@@ -50,6 +53,9 @@ public:
 
         return -1;
     }
+
+    // ================= TG/2024/2283 - PROGRAMMER 2 =================
+    // Claim search helper used by claim-management functions.
 
     // Search for a claim by claim ID.
     // Returns array index if found, otherwise returns -1.
@@ -66,6 +72,7 @@ public:
         return -1;
     }
 
+    // ================= TG/2024/2175 - PROGRAMMER 1 =================
     // Add a new policy holder.
     bool addPolicyHolder(
         string holderID,
@@ -76,6 +83,7 @@ public:
         int age,
         string& message)
     {
+        // TG/2024/2293 - TESTING & VALIDATION
         // Basic validation: mandatory text fields cannot be empty.
         if (holderID == "" || name == "" || nic == "" || phone == "" || address == "")
         {
@@ -121,6 +129,7 @@ public:
         return true;
     }
 
+    // TG/2024/2175 - POLICY HOLDER SEARCH
     // Copy one holder record out of the system for display.
     bool getPolicyHolder(string holderID, PolicyHolder& result) const
     {
@@ -135,6 +144,7 @@ public:
         return true;
     }
 
+    // TG/2024/2175 - POLICY PLAN SELECTION
     // Assign one of the three available plan names to a registered holder.
     bool selectPolicyPlan(
         string holderID,
@@ -151,6 +161,7 @@ public:
             return false;
         }
 
+        // TG/2024/2293 - TESTING & VALIDATION
         // Coverage amount must be positive.
         if (coverageAmount <= 0)
         {
@@ -174,6 +185,8 @@ public:
         return true;
     }
 
+    // ================= TG/2024/2283 - PROGRAMMER 2 =================
+    // Premium calculation.
     // Calculate an academic demonstration premium.
     bool calculatePremium(
         string holderID,
@@ -189,6 +202,7 @@ public:
             return false;
         }
 
+        // TG/2024/2293 - TESTING & VALIDATION
         // A plan must be selected before calculating a premium.
         if (holders[index].hasPlan() == false)
         {
@@ -243,6 +257,8 @@ public:
         return true;
     }
 
+    // ================= TG/2024/2283 - PROGRAMMER 2 =================
+    // Claim creation and status management.
     // Create a new claim for an existing policy holder.
     bool createClaim(
         string claimID,
@@ -250,6 +266,7 @@ public:
         double claimAmount,
         string& message)
     {
+        // TG/2024/2293 - TESTING & VALIDATION
         // Mandatory IDs cannot be empty.
         if (claimID == "" || holderID == "")
         {
@@ -309,6 +326,7 @@ public:
         return true;
     }
 
+    // TG/2024/2283 - CLAIM STATUS UPDATE
     // Change an existing claim status.
     bool updateClaimStatus(
         string claimID,
@@ -324,6 +342,7 @@ public:
             return false;
         }
 
+        // TG/2024/2293 - TESTING & VALIDATION
         // Only allow the four status values used in this project.
         if (newStatus != "Pending" &&
             newStatus != "Under Review" &&
