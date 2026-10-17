@@ -2,15 +2,17 @@
 
 #include <string>
 
+using std::string;
+
 // Claim stores one insurance claim record.
 class Claim
 {
 private:
     // Private members protect claim data from direct outside access.
-    std::string claimID;
-    std::string holderID;
+    string claimID;
+    string holderID;
     double claimAmount;
-    std::string status;
+    string status;
 
 public:
     // Default constructor.
@@ -23,7 +25,7 @@ public:
     }
 
     // Public method used when a new claim is submitted.
-    void createClaim(std::string newClaimID, std::string newHolderID, double newAmount)
+    void createClaim(string newClaimID, string newHolderID, double newAmount)
     {
         claimID = newClaimID;
         holderID = newHolderID;
@@ -34,19 +36,19 @@ public:
     }
 
     // Public method used to change claim status.
-    void updateStatus(std::string newStatus)
+    void updateStatus(string newStatus)
     {
         status = newStatus;
     }
 
     // Getter for claim ID.
-    std::string getClaimID() const
+    string getClaimID() const
     {
         return claimID;
     }
 
     // Getter for policy holder ID.
-    std::string getHolderID() const
+    string getHolderID() const
     {
         return holderID;
     }
@@ -58,7 +60,7 @@ public:
     }
 
     // Getter for current claim status.
-    std::string getStatus() const
+    string getStatus() const
     {
         return status;
     }
