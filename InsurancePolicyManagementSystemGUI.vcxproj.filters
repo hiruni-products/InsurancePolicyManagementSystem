@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{A1000001-2162-4000-9000-000000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\OOPDesign">
+      <UniqueIdentifier>{A1000002-2162-4000-9000-000000000002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PolicyHolderModule">
+      <UniqueIdentifier>{A1000003-2162-4000-9000-000000000003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PremiumClaimModule">
+      <UniqueIdentifier>{A1000004-2162-4000-9000-000000000004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Validation">
+      <UniqueIdentifier>{A1000005-2162-4000-9000-000000000005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{A1000006-2162-4000-9000-000000000006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VIVA_PARTS">
+      <UniqueIdentifier>{A1000007-2162-4000-9000-000000000007}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClCompile Include="GUI\Program.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="GUI\MainForm.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InsuranceSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\OOPDesign\Person.h">
+      <Filter>Core\OOPDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\OOPDesign\PolicyHolder.h">
+      <Filter>Core\OOPDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\OOPDesign\PolicyPlan.h">
+      <Filter>Core\OOPDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\OOPDesign\Claim.h">
+      <Filter>Core\OOPDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PolicyHolderModule\PolicyHolderManager.h">
+      <Filter>Core\PolicyHolderModule</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PremiumClaimModule\PremiumClaimManager.h">
+      <Filter>Core\PremiumClaimModule</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Validation\Validation.h">
+      <Filter>Core\Validation</Filter>
+    </ClInclude>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="TEAM_ROLES.md" />
+    <None Include="TEST_CASES.md" />
+    <None Include="VIVA_GUIDE.md" />
+    <None Include="VIVA_PARTS\TG2024_2167_GUI.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+    <None Include="VIVA_PARTS\TG2024_2175_POLICY_HOLDER.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+    <None Include="VIVA_PARTS\TG2024_2194_OOP_DESIGN.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+    <None Include="VIVA_PARTS\TG2024_2283_PREMIUM_CLAIMS.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+    <None Include="VIVA_PARTS\TG2024_2293_TESTING_VALIDATION.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+    <None Include="VIVA_PARTS\TG2024_2322_DOCUMENTATION.md">
+      <Filter>VIVA_PARTS</Filter>
+    </None>
+  </ItemGroup>
+</Project>
