@@ -84,5 +84,18 @@
     <ClInclude Include="Core\Validation\Validation.h" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="TEAM_ROLES.md" />
+    <None Include="TEST_CASES.md" />
+    <None Include="VIVA_GUIDE.md" />
+    <None Include="VIVA_PARTS\TG2024_2167_GUI.md" />
+    <None Include="VIVA_PARTS\TG2024_2175_POLICY_HOLDER.md" />
+    <None Include="VIVA_PARTS\TG2024_2194_OOP_DESIGN.md" />
+    <None Include="VIVA_PARTS\TG2024_2283_PREMIUM_CLAIMS.md" />
+    <None Include="VIVA_PARTS\TG2024_2293_TESTING_VALIDATION.md" />
+    <None Include="VIVA_PARTS\TG2024_2322_DOCUMENTATION.md" />
+  </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
