@@ -8,11 +8,13 @@ using std::string;
 class PolicyPlan
 {
 protected:
+    // Common values shared by all policy plans
     string planName;
     double basePremium;
     double coverageRate;
 
 public:
+    // Default constructor - starts with empty plan values
     PolicyPlan()
     {
         planName = "";
@@ -20,25 +22,30 @@ public:
         coverageRate = 0.0;
     }
 
+    // Returns the plan name
     string getPlanName() const
     {
         return planName;
     }
 
+    // Returns the base premium
     double getBasePremium() const
     {
         return basePremium;
     }
 
+    // Returns the coverage rate
     double getCoverageRate() const
     {
         return coverageRate;
     }
 };
 
+// Life Insurance plan inherits from PolicyPlan
 class LifePolicy : public PolicyPlan
 {
 public:
+    // Sets the values used for Life Insurance
     LifePolicy()
     {
         planName = "Life Insurance";
@@ -47,9 +54,11 @@ public:
     }
 };
 
+// Health Insurance plan inherits from PolicyPlan
 class HealthPolicy : public PolicyPlan
 {
 public:
+    // Sets the values used for Health Insurance
     HealthPolicy()
     {
         planName = "Health Insurance";
@@ -58,9 +67,11 @@ public:
     }
 };
 
+// Vehicle Insurance plan inherits from PolicyPlan
 class VehiclePolicy : public PolicyPlan
 {
 public:
+    // Sets the values used for Vehicle Insurance
     VehiclePolicy()
     {
         planName = "Vehicle Insurance";
