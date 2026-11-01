@@ -74,16 +74,19 @@ namespace InsurancePolicyManagementSystemGUI
         }
 
     private:
+        // Convert Windows Forms text to a standard C++ string
         string toStdString(String^ text)
         {
             return msclr::interop::marshal_as<string>(text);
         }
 
+        // Convert a standard C++ string to Windows Forms text
         String^ toManagedString(const string& text)
         {
             return gcnew String(text.c_str());
         }
 
+        // Create a label control
         Label^ makeLabel(String^ text, int x, int y)
         {
             Label^ label = gcnew Label();
@@ -93,6 +96,7 @@ namespace InsurancePolicyManagementSystemGUI
             return label;
         }
 
+        // Create a text box control
         TextBox^ makeTextBox(int x, int y, int width)
         {
             TextBox^ box = gcnew TextBox();
@@ -101,6 +105,7 @@ namespace InsurancePolicyManagementSystemGUI
             return box;
         }
 
+        // Create a button and connect its click event
         Button^ makeButton(String^ text, int x, int y, int width, EventHandler^ clickHandler)
         {
             Button^ button = gcnew Button();
@@ -199,6 +204,7 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblHolderResult);
         }
 
+        // Register button - validates age and sends holder details to InsuranceSystem
         void btnRegister_Click(Object^ sender, EventArgs^ e)
         {
             int age = 0;
@@ -225,6 +231,7 @@ namespace InsurancePolicyManagementSystemGUI
             lblHolderResult->ForeColor = success ? Color::DarkGreen : Color::DarkRed;
         }
 
+        // Search button - finds a holder and displays the saved details
         void btnSearchHolder_Click(Object^ sender, EventArgs^ e)
         {
             PolicyHolder holder;
@@ -280,6 +287,7 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblPlanResult);
         }
 
+        // Select Plan button - validates input and saves the selected policy plan
         void btnSelectPlan_Click(Object^ sender, EventArgs^ e)
         {
             double coverageAmount = 0.0;
@@ -329,6 +337,7 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblPremiumResult);
         }
 
+        // Calculate Premium button - requests the premium from InsuranceSystem
         void btnCalculatePremium_Click(Object^ sender, EventArgs^ e)
         {
             double premium = 0.0;
@@ -401,6 +410,7 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblClaimResult);
         }
 
+        // Submit Claim button - validates the amount and creates a new claim
         void btnSubmitClaim_Click(Object^ sender, EventArgs^ e)
         {
             double claimAmount = 0.0;
@@ -429,6 +439,7 @@ namespace InsurancePolicyManagementSystemGUI
             }
         }
 
+        // Customer Search Claim button - displays the current claim status
         void btnSearchClaim_Click(Object^ sender, EventArgs^ e)
         {
             Claim claim;
@@ -503,6 +514,7 @@ namespace InsurancePolicyManagementSystemGUI
             page->Controls->Add(lblAdminClaimResult);
         }
 
+        // Admin Search Claim button - displays claim details for review
         void btnSearchAdminClaim_Click(Object^ sender, EventArgs^ e)
         {
             Claim claim;
@@ -527,6 +539,7 @@ namespace InsurancePolicyManagementSystemGUI
             }
         }
 
+        // Update Status button - saves the status selected by the admin
         void btnUpdateClaim_Click(Object^ sender, EventArgs^ e)
         {
             if (cmbAdminClaimStatus->SelectedIndex == -1)
