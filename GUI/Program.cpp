@@ -1,3 +1,4 @@
+// Program entry point for the Insurance Policy Management System GUI.
 // Windows types needed by the WinMain entry point.
 #include <Windows.h>
 
